@@ -45,6 +45,12 @@ endfunction
 function! s:RunEunitCommand(suite, test)
   let s:cmd = substitute(g:eunit_command, "{suites}", a:suite, "g")
   let s:cmd = substitute(s:cmd, "{tests}", a:test, "g")
+  if empty(a:suite)
+    let s:cmd = substitute(s:cmd, "suites=", "", "g")
+  endif
+  if empty(a:test)
+    let s:cmd = substitute(s:cmd, "tests=", "", "g")
+  endif
   execute s:cmd
   let g:last_eunit_command = s:cmd
 endfunction
